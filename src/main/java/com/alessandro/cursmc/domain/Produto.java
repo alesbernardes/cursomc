@@ -1,4 +1,4 @@
-package com.alessandro.cursomc.domain;
+package com.alessandro.cursmc.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,10 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Produto implements Serializable{
@@ -22,25 +21,24 @@ public class Produto implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
-	private Double preco;
+	private Double valor;
 	
-     @JsonBackReference
-	 @ManyToMany
-	 @JoinTable(name = "PRODUTO_CATEGORIA",
-	 joinColumns = @JoinColumn(name = "produto_id"),
-	 inverseJoinColumns = @JoinColumn(name = "categoria_id")
-	 )
-	private List<Categoria> categorias = new ArrayList<>();
+	@ManyToMany
+	@JoinTable(name ="PRODUTO_CATEGORIA", 
+			joinColumns =@JoinColumn(name = "produto_id"),
+			inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+			
+	private List<Categoria> categorias= new ArrayList<>();
 	
 	public Produto() {
 		
 	}
 
-	public Produto(Integer id, String nome, Double preco) {
+	public Produto(Integer id, String nome, Double valor) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.preco = preco;
+		this.valor = valor;
 	}
 
 	public Integer getId() {
@@ -59,13 +57,14 @@ public class Produto implements Serializable{
 		this.nome = nome;
 	}
 
-	public Double getPreco() {
-		return preco;
+	public Double getValor() {
+		return valor;
 	}
 
-	public void setValor(Double preco) {
-		this.preco = preco;
+	public void setValor(Double valor) {
+		this.valor = valor;
 	}
+
 	public List<Categoria> getCategorias() {
 		return categorias;
 	}
@@ -73,6 +72,7 @@ public class Produto implements Serializable{
 	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -97,7 +97,7 @@ public class Produto implements Serializable{
 			return false;
 		return true;
 	}
-
+	
 	
 	
 }

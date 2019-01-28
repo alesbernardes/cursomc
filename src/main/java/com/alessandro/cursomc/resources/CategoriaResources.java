@@ -16,16 +16,26 @@ import com.alessandro.cursomc.services.CategoriaService;
 @RestController
 @RequestMapping(value="/categorias")
 public class CategoriaResources {
-	
+
+	@RequestMapping(method=RequestMethod.GET)
+	public List<Categoria> listar() {
+
+		Categoria cat = new Categoria(1, "Informática");
+		Categoria cat2 = new Categoria(2, "Escritório");
+
+		List <Categoria> lista = new ArrayList<>();
+		lista.add(cat);
+		lista.add(cat2);
 	@Autowired
 	private CategoriaService service;
-	
-	
+
+
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		
+
+		return lista;
 		Categoria obj = service.buscar(id);
 		return ResponseEntity.ok().body(obj);
-	
+
 	}
 }
